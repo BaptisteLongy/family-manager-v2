@@ -16,6 +16,7 @@ export const LIST = gql`
             items {
                 id
                 name
+                list_id
             }
         }
     }
@@ -27,6 +28,15 @@ export const ADD_ITEM_TO_LIST = gql`
             id
             name
             list_id
+        }
+    }
+`
+
+export const DELETE_ITEM = gql`
+    mutation deleteItem($id: Int!) {
+        deleteOneItem(where: { id: $id }) {
+            id
+            name
         }
     }
 `

@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import { useQuery, useMutation } from '@apollo/client'
 import { LIST, ADD_ITEM_TO_LIST } from '../../requests/lists'
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Item from '../../components/item'
 
 export default function List() {
     const router = useRouter()
@@ -30,7 +32,7 @@ export default function List() {
         <div>
             <h1>La liste {dataList.list.name}</h1>
             {dataList.list.items.map(item => {
-                return <p>{item.name}</p>
+                return <Item item={item} key={item.id}/>
             })}
             <form
                 onSubmit={e => {
@@ -43,7 +45,7 @@ export default function List() {
                     value={newItem}
                     onChange={handleChange}
                 />
-                <button type="submit">Ajouter à la liste</button>
+                <Button type="submit" variant="contained" color="primary">Ajouter à la liste</Button>
             </form>
         </div>
     )
