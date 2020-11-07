@@ -10,7 +10,7 @@ export const ALL_LISTS = gql`
 `
 
 export const LIST = gql`
-    query list($id: Int) {
+    query list($id: Int!) {
         list(where: {id: $id}) {
             name
             items {
@@ -18,6 +18,15 @@ export const LIST = gql`
                 name
                 list_id
             }
+        }
+    }
+`
+
+export const ADD_LIST = gql`
+    mutation addList($name: String!) {
+        createOneList(data: {name: $name}) {
+            id
+            name
         }
     }
 `
