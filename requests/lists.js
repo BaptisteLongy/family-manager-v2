@@ -40,3 +40,12 @@ export const DELETE_ITEM = gql`
         }
     }
 `
+
+export const DELETE_LIST = gql`
+    mutation deleteList($id: Int!) {
+        deleteOneList(where: { id: $id}) {
+            id
+            name
+        }
+    }
+`
