@@ -20,3 +20,13 @@ export const LIST = gql`
         }
     }
 `
+
+export const ADD_ITEM_TO_LIST = gql`
+    mutation addItemToList($name: String!, $list_id: Int!) {
+        createOneItem(data: { name: $name, list: { connect: { id: $list_id } } }) {
+            id
+            name
+            list_id
+        }
+    }
+`
