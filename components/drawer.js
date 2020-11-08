@@ -12,37 +12,21 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import HomeIcon from '@material-ui/icons/Home';
 
+export default function MenuDrawer(props) {
+    const [open, setOpen] = React.useState(props.open);
+    const [shoppingListOpen, setShoppingListOpen] = React.useState(true);
 
-function ListTextField(props) {
-    const { onClickCallback } = props
-
-    const renderTextField = () => {
-        return (
-            <form
-                onSubmit={e => {
-                    e.preventDefault();
-                    console.log(e)
-                    onClickCallback({ variables: { name: e.target.[0].value } });
-                }}
-            >
-                <TextField label="Nouvelle liste" variant="filled"/>
-                <IconButton type="submit">
-                    <AddIcon />
-                </IconButton>
-            </form>
-        )
-    }
-
-    return (
-        <li>
-            <ListItem button component={renderTextField} />
-        </li>
-    );
-}
-
-export default function MenuDrawer() {
-    const [open, setOpen] = React.useState(false);
+    React.useEffect(() => {
+        setOpen(props.open);
+    }, [props.open]);
 
     const { loading, error, data } = useQuery(ALL_LISTS)
     const [deleteList, { deletedList }] = useMutation(DELETE_LIST,
@@ -63,42 +47,82 @@ export default function MenuDrawer() {
         if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
+        props.onCloseCallback && props.onCloseCallback(false)
         setOpen(open);
+    };
+
+    const toggleShoppingList = () => {
+        setShoppingListOpen(!shoppingListOpen);
     };
 
     if (error) return <p>Erreur :(</p>
     if (loading) return <p>Loading !</p>
 
     return (
-        <div>
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={toggleDrawer(true)}
-                edge="start"
-            >
-                <MenuIcon />
-            </IconButton>
-            <Drawer
-                open={open}
-                onClose={toggleDrawer(false)}
-            >
-                <List>
-                    {data.lists.map((list) => (
-                        <Link href={`/list/${list.id}`} passHref key={list.id}>
-                            <ListItem button component="a" key={list.id}>
-                                <ListItemText primary={list.name} />
-                                <ListItemSecondaryAction>
-                                    <IconButton edge="end" aria-label="comments" onClick={() => { deleteList({ variables: { id: list.id } }) }}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </ListItemSecondaryAction>
-                            </ListItem>
-                        </Link>
-                    ))}
-                    <ListTextField onClickCallback={addList} />
-                </List>
-            </Drawer>
-        </div>
+        <Drawer
+            open={open}
+            onClose={toggleDrawer(false)}
+        >
+            <List>
+                <Link href={`/`} passHref>
+                    <ListItem button component="a" onClick={(e) => {props.onCloseCallback && props.onCloseCallback(false)}}>
+
+                        <ListItemIcon>
+                            <HomeIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Accueil" />
+
+                    </ListItem>
+                </Link>
+                <ListItem button onClick={toggleShoppingList}>
+                    <ListItemIcon>
+                        <ShoppingCartIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Listes de courses" />
+                    {shoppingListOpen ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse in={shoppingListOpen} timeout="auto" unmountOnExit>
+                    <List>
+                        {data.lists.map((list) => (
+                            <Link href={`/list/${list.id}`} passHref key={list.id}>
+                                <ListItem button component="a" key={list.id} onClick={(e) => {props.onCloseCallback && props.onCloseCallback(false)}}>
+                                    <ListItemText primary={list.name} />
+                                    <ListItemSecondaryAction>
+                                        <IconButton edge="end" aria-label="comments" onClick={() => { deleteList({ variables: { id: list.id } }) }}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </ListItemSecondaryAction>
+                                </ListItem>
+                            </Link>
+                        ))}
+                        <ListItem>
+                            <form
+                                onSubmit={e => {
+                                    e.preventDefault();
+                                    addList({ variables: { name: e.target.[0].value } });
+                                }}
+                            >
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justify="space-between"
+                                    alignItems="center"
+                                    spacing={1}
+                                >
+                                    <Grid item>
+                                        <TextField label="Nouvelle liste" variant="filled" size="small" />
+                                    </Grid>
+                                    <Grid item>
+                                        <IconButton type="submit">
+                                            <AddIcon />
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
+                            </form>
+                        </ListItem>
+                    </List>
+                </Collapse>
+            </List>
+        </Drawer>
     )
 }

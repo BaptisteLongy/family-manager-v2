@@ -1,5 +1,9 @@
-//import styles from '../styles/Home.module.css'
+import React from 'react'
+export default function Home({ setMenuTitle }) {
 
-export default function Home() {
+  React.useEffect(() => {
+    setMenuTitle && setMenuTitle("Accueil")
+  });
+
   return <h1>Bienvenue sur le Family Manager d'Epône !</h1>
 }

@@ -1,10 +1,14 @@
-
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import Divider from '@material-ui/core/Divider';
+import React from 'react'
+
 
 export default function Footer() {
     return (
-        <Container maxWidth="sm">
+        <React.Fragment>
+            <Divider />
             <Grid
                 container
                 direction="row"
@@ -12,12 +16,14 @@ export default function Footer() {
                 alignItems="center"
             >
                 <Grid item >
-                    Powered by Baptiste - Family Manager v2
+                    Family Manager v2 - Powered by Baptiste
                 </Grid>
                 <Grid item >
-                    <a href="https://github.com/BaptisteLongy/family-manage-v2">GitHub</a>
+                    <IconButton aria-label="GitHub.com" onClick={() => window.open('https://github.com/BaptisteLongy/family-manage-v2', "_blank")}>
+                        <GitHubIcon />
+                    </IconButton>
                 </Grid>
             </Grid>
-        </Container>
+        </React.Fragment>
     )
 }
