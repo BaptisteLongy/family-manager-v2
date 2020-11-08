@@ -1,9 +1,11 @@
 import React from 'react'
+import Typography from '@material-ui/core/Typography';
+
 export default function Home({ setMenuTitle }) {
 
   React.useEffect(() => {
     setMenuTitle && setMenuTitle("Accueil")
   });
 
-  return <h1>Bienvenue sur le Family Manager d'Epône !</h1>
+  return <Typography variant="h5">Bienvenue sur le Family Manager d'Epône !</Typography>
 }
