@@ -1,6 +1,6 @@
 # Rebuilding the pm2 image for ARM architecture
-# FROM arm64v8/node:current
-FROM node:current
+FROM arm64v8/node:current
+# FROM node:current
 
 # Install pm2
 RUN npm install pm2@3 -g
