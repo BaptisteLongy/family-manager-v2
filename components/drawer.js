@@ -1,17 +1,18 @@
 import React from 'react';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 import { useQuery, useMutation } from '@apollo/client'
 import { ALL_LISTS, DELETE_LIST, ADD_LIST } from '../requests/lists'
 import Link from 'next/link'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import Collapse from '@material-ui/core/Collapse';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import HomeIcon from '@material-ui/icons/Home';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import Collapse from '@mui/material/Collapse';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import HomeIcon from '@mui/icons-material/Home';
 import ShoppingListMenu from './drawerComponents/shoppingListMenu'
 
 export default function MenuDrawer(props) {
@@ -40,15 +41,13 @@ export default function MenuDrawer(props) {
             onClose={toggleDrawer(false)}
         >
             <List>
-                <Link href={`/`} passHref>
-                    <ListItem button component="a" onClick={(e) => { props.onCloseCallback && props.onCloseCallback(false) }}>
+                    <ListItemButton component={ Link } to={ `/` } onClick={(e) => { props.onCloseCallback && props.onCloseCallback(false) }}>
                         <ListItemIcon>
                             <HomeIcon />
                         </ListItemIcon>
                         <ListItemText primary="Accueil" />
-                    </ListItem>
-                </Link>
-                <ListItem button onClick={toggleShoppingList}>
+                    </ListItemButton>
+                <ListItem onClick={toggleShoppingList}>
                     <ListItemIcon>
                         <ShoppingCartIcon />
                     </ListItemIcon>

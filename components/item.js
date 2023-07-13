@@ -1,8 +1,8 @@
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useMutation } from '@apollo/client'
 import { LIST, DELETE_ITEM } from '../requests/lists'
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 
 export default function Item(props) {
     const { item } = props
@@ -19,7 +19,7 @@ export default function Item(props) {
         <Grid
             container
             direction="row"
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             spacing={3}
         >

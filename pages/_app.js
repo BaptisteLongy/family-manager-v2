@@ -2,10 +2,10 @@ import { ApolloProvider } from '@apollo/client'
 import { useApollo } from '../lib/apolloClient'
 import Header from '../components/header'
 import Footer from '../components/footer'
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline';
 import React from 'react'
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import ApplicationBar from '../components/appBar'
 
 function MyApp({ Component, pageProps }) {
@@ -22,9 +22,9 @@ function MyApp({ Component, pageProps }) {
           <Grid
             container
             direction="column"
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="stretch"
-            spacing={4}
+            spacing={8}
           >
             <Grid item>
               <Component {...pageProps} setMenuTitle={setMenuTitle} />
