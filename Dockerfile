@@ -1,15 +1,12 @@
 # Rebuilding the pm2 image for ARM architecture
-FROM arm64v8/node:current
+FROM arm64v8/alpine:latest
 # FROM node:current
-
-# Install pm2
-RUN npm install pm2@3 -g
 
 WORKDIR /usr/family-manager
 
 # Node dependencies / install
 COPY package*.json ./
-RUN npm install --production
+RUN npm ci --production
 
 ARG SHOPPING_LIST_ENDPOINT
 ENV NEXT_PUBLIC_SHOPPING_LIST_BACK_END_ENDPOINT=$SHOPPING_LIST_ENDPOINT
@@ -18,4 +15,4 @@ ENV NEXT_PUBLIC_SHOPPING_LIST_BACK_END_ENDPOINT=$SHOPPING_LIST_ENDPOINT
 COPY ./ ./
 RUN npm run build
 
-CMD [ "pm2-runtime", "npm", "--", "start" ]
+CMD [ "npm", "run", "start" ]
