@@ -1,5 +1,5 @@
 # Rebuilding the pm2 image for ARM architecture
-FROM arm64v8/alpine:latest
+FROM arm64v8/node:current-alpine
 # FROM node:current
 
 WORKDIR /usr/family-manager
